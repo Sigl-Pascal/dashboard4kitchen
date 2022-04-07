@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-export default function Index() {
+const Index = () => {
   return (
     <div>
       <Head>
@@ -12,3 +12,5 @@ export default function Index() {
     </div>
   )
 }
+
+export default Index
