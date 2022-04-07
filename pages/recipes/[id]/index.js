@@ -15,7 +15,11 @@ const Recipe = ({data}) => {
             <div className="card-body">
               <h6>Bewertung: {data.rating}</h6>
               <h3>Beschreibung</h3>
-              <p>{data.description}</p>
+              <div className='card'>
+                <div className='card-body'>
+                  <p>{data.description}</p>
+                </div>
+              </div>
               <Ingredients {...data} />
             </div>
       </div>
