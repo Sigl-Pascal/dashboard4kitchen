@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css'
+import Layout from '../components/Layout'
 import { useEffect } from 'react'
 
 const App = ({ Component, pageProps }) => {
@@ -6,7 +7,7 @@ const App = ({ Component, pageProps }) => {
     import("bootstrap/dist/js/bootstrap");
   }, [])
   
-  return <Component {...pageProps} />
+  return <Layout><Component {...pageProps} /></Layout>
 }
   
 export default App
