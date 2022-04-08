@@ -1,12 +1,12 @@
-import dbConnect from '../../../config/db'
-import Recipe from '../../../models/Recipe'
+import dbConnect from "../../../config/db"
+import Recipe from "../../../models/Recipe"
 
 const handler = async (req, res) => {
     const { method } = req
     await dbConnect()
 
     switch(method){
-        case'GET':
+        case"GET":
             try {
                 const recipes = await Recipe.find({})
                 res.status(200).json({success: true, data:recipes})
@@ -14,7 +14,7 @@ const handler = async (req, res) => {
                 res.status(400).json({success: false})
             }
         break
-        case'POST':
+        case"POST":
             try {
                 const recipe = await Recipe.create(req.body)
                 res.status(200).json({success: true, data: recipe})

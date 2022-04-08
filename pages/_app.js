@@ -1,6 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.css'
-import Layout from '../components/Layout'
-import { useEffect } from 'react'
+import "bootstrap/dist/css/bootstrap.css"
+import Layout from "../components/Layout"
+import { useEffect } from "react"
 
 const App = ({ Component, pageProps }) => {
   useEffect(() => {

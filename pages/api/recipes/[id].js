@@ -1,5 +1,5 @@
-import dbConnect from '../../../config/db'
-import Recipe from '../../../models/Recipe'
+import dbConnect from "../../../config/db"
+import Recipe from "../../../models/Recipe"
 
 const handler = async (req, res) => {
     const { query: { id }, method } = req
@@ -7,7 +7,7 @@ const handler = async (req, res) => {
     await dbConnect()
 
     switch(method){
-        case'GET':
+        case"GET":
             try {
                 const recipe = await Recipe.findById(id)
                 res.status(200).json({success: true, data: recipe})
@@ -15,7 +15,7 @@ const handler = async (req, res) => {
                 res.status(400).json({success: false})
             }
         break
-        case'PUT':
+        case"PUT":
             try {
                 const recipe = await Recipe.findByIdAndUpdate(id, req.body)
                 res.status(200).json({success: true, data: recipe})
@@ -23,7 +23,7 @@ const handler = async (req, res) => {
                 res.status(400).json({success: false})
             }
         break
-        case'DELETE':
+        case"DELETE":
         try {
             const recipe = await Recipe.findByIdAndDelete(id)
             res.status(200).json({success: true, data: recipe})

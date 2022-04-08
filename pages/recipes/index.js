@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import Head from 'next/head'
+import Link from "next/link"
+import Head from "next/head"
 
 const Recipes = ({data}) => {
     return(
@@ -26,15 +26,15 @@ const Recipes = ({data}) => {
                 )
             })} */}
             <div className="card mx-auto mt-5" style={{width: 40 + "rem"}}>
-              <div className='card-header'>
+              <div className="card-header">
                 <h1>Rezepte</h1>
               </div>
-              <div className='card-body'>  
+              <div className="card-body">  
                 <div className="list-group" >
                   {data.map( recipe =>{
                     return(
-                      <Link key={recipe._id} href={`/recipes/${recipe._id}`} className='list-group-item'>
-                        <a className='list-group-item'>{recipe.name}</a>
+                      <Link key={recipe._id} href={`/recipes/${recipe._id}`} className="list-group-item">
+                        <a className="list-group-item">{recipe.name}</a>
                       </Link>
                     )
                   })}
@@ -46,7 +46,7 @@ const Recipes = ({data}) => {
 }
 
 export const getServerSideProps = async() => {
-    const res = await fetch('http://localhost:3000/api/recipes')
+    const res = await fetch("http://localhost:3000/api/recipes")
     const { data } = await res.json()
     return { props: {data} }
 }

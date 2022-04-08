@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link"
 
 const Navbar = () => {
     return(
@@ -8,7 +8,7 @@ const Navbar = () => {
                     <Link href="/">
                         <a className="nav-item nav-link">Home</a>
                     </Link>
-                    <div className='nav-item dropdown'>
+                    <div className="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Rezepte
                         </a>
