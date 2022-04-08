@@ -1,4 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css"
+import "../css/style.css"
+import "semantic-ui-css/semantic.min.css"
 import Layout from "../components/Layout"
 import { useEffect } from "react"
 
