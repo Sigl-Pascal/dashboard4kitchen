@@ -1,48 +1,41 @@
 import Link from "next/link"
 import Head from "next/head"
+import { Button, Card } from "semantic-ui-react";
 
 const Recipes = ({data}) => {
-    return(
-        <>
+  return(
+      <>
         <Head>
           <title>Rezepte</title>
         </Head>
-            {/* {data.map( recipe => {
-                return (
-                    <div key={recipe._id}>
-                    <p>{recipe.name}</p>
-                    <p>{recipe.rating}</p>
-                    <p>{recipe.description}</p>
-                      {recipe.ingredients.map(ingredient => {
-                        return(
-                          <div key={ingredient._id}>
-                            <p>{ingredient.name}</p>
-                            <p>{ingredient.quantity}</p>
-                            <p>{ingredient.unitOfMessure}</p>
-                          </div>
-                        )
-                      })}
-                  </div>
-                )
-            })} */}
-            <div className="card mx-auto mt-5" style={{width: 40 + "rem"}}>
-              <div className="card-header">
-                <h1>Rezepte</h1>
-              </div>
-              <div className="card-body">  
-                <div className="list-group" >
-                  {data.map( recipe =>{
-                    return(
-                      <Link key={recipe._id} href={`/recipes/${recipe._id}`} className="list-group-item">
-                        <a className="list-group-item">{recipe.name}</a>
+          <h1 className="text-center">Rezepte</h1>
+        <div className="container">
+          <div className="row">
+            {data.map(recipe => (
+              <div key={recipe._id} className="col-12 col-md-3 mb-3">
+                <Card className="w-100 text-center h-100">
+                  <Card.Content>
+                    <Card.Header>
+                      <Link href={`/recipes/${recipe._id}`}>
+                        <a>{recipe.name}</a>
                       </Link>
-                    )
-                  })}
-                </div>
+                    </Card.Header>
+                  </Card.Content>
+                  <Card.Content extra className="d-grid gap-2 d-lg-block">
+                    <Link href={`/recipes/${recipe._id}`}>
+                      <Button primary>Ansicht</Button>
+                    </Link>
+                    <Link href={`/recipes/${recipe._id}/edit`}>
+                      <Button primary>Bearbeiten</Button>
+                    </Link>
+                  </Card.Content>
+                </Card>
               </div>
-            </div>
-        </>
-    )
+            ))}
+          </div>
+        </div>
+      </>
+  )
 }
 
 export const getServerSideProps = async() => {
