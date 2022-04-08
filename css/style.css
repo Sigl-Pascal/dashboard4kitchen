@@ -1,4 +1,10 @@
-.note-container {
+.wrapper {
+    max-width: 1200px;
+    padding: 0 16px;
+    margin: auto;
+}
+
+.recipe-container {
     text-align: center;
     margin-top: 20px;
 }
