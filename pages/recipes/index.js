@@ -22,10 +22,10 @@ const Recipes = ({data}) => {
                     </Card.Header>
                   </Card.Content>
                   <Card.Content extra className="d-grid gap-2 d-lg-block">
-                    <Link href={`/recipes/${recipe._id}`}>
+                    <Link href={`/recipes/${recipe._id}`} passHref>
                       <Button primary>Ansicht</Button>
                     </Link>
-                    <Link href={`/recipes/${recipe._id}/edit`}>
+                    <Link href={`/recipes/${recipe._id}/edit`} passHref>
                       <Button primary>Bearbeiten</Button>
                     </Link>
                   </Card.Content>
