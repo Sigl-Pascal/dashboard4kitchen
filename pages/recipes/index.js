@@ -1,40 +1,50 @@
 import Link from "next/link"
 import Head from "next/head"
-import { Button, Card } from "semantic-ui-react";
+import {Container,Grid, Card, CardContent, CardHeader, CardActions, Button, IconButton, Stack} from "@mui/material"
+import {PreviewOutlined, EditOutlined, DeleteOutlined } from "@mui/icons-material"
 
 const Recipes = ({data}) => {
   return(
-      <>
-        <Head>
-          <title>Rezepte</title>
-        </Head>
-          <h1 className="text-center">Rezepte</h1>
-        <div className="container">
-          <div className="row">
-            {data.map(recipe => (
-              <div key={recipe._id} className="col-12 col-md-3 mb-3">
-                <Card className="w-100 text-center h-100">
-                  <Card.Content>
-                    <Card.Header>
-                      <Link href={`/recipes/${recipe._id}`}>
-                        <a>{recipe.name}</a>
+    <>
+      <Head>
+        <title>Rezepte</title>
+      </Head>
+      <h1 style={{textAlign: "center"}}>Rezepte</h1>
+      <Container style={{marginTop: "18px"}}>
+        <Grid container spacing={2}>
+          {data.map(recipe => {
+            return(
+              <Grid item spacing={3} key={recipe._id} xs={12} sm={12} md={6} lg={3}>
+                <Card style={{textAlign: "center"}}>
+                  <CardHeader 
+                    title= {
+                      <Link href={`/recipes/${recipe._id}`} passHref>
+                        <a className="blank-link">{recipe.name}</a>
                       </Link>
-                    </Card.Header>
-                  </Card.Content>
-                  <Card.Content extra className="d-grid gap-2 d-lg-block">
-                    <Link href={`/recipes/${recipe._id}`} passHref>
-                      <Button primary>Ansicht</Button>
-                    </Link>
-                    <Link href={`/recipes/${recipe._id}/edit`} passHref>
-                      <Button primary>Bearbeiten</Button>
-                    </Link>
-                  </Card.Content>
+                    }
+                  />
+                  <CardActions style={{justifyContent: "center"}}>
+                    <Stack direction="row" spacing={2}>
+                      <Link href={`/recipes/${recipe._id}/edit`} passHref>
+                        <Button color="primary" variant="contained">
+                          <EditOutlined />
+                        </Button>
+                      </Link>
+                      <Link href={`/recipes/${recipe._id}/delete`} passHref>
+                        <Button color="error" variant="contained">
+                          <DeleteOutlined />
+                        </Button>
+                      </Link>
+                    </Stack>
+                  </CardActions>
                 </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </>
+              </Grid>
+            )
+          })
+          }
+        </Grid>
+      </Container>
+    </>
   )
 }
 
