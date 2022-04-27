@@ -99,11 +99,12 @@ const NewRecipe = () => {
                       <Typography variant='h6'>Beschreibung</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                      <Textarea
+                      <Textfield
                         name='description'
                         style={{ width: '100%' }}
-                        minRows={8}
-                        maxRows={12}
+                        multiline
+                        minRows={6}
+                        maxRows={6}
                       />
                     </Grid>
                     <Grid item xs={12}>
