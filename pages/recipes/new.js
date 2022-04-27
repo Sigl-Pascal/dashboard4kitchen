@@ -16,6 +16,7 @@ import Textfield from '../../components/FormUI/Textfield'
 import Textarea from '../../components/FormUI/Textarea'
 import Rating from '../../components/FormUI/Rating'
 import Router from 'next/router'
+import Head from 'next/head'
 
 const NewRecipe = () => {
   const INITIAL_VALUES = {
@@ -28,15 +29,27 @@ const NewRecipe = () => {
         unitOfMessure: '',
       },
     ],
-    rating: 0,
+    rating: 1,
   }
 
-  const VALIDATION_SCHEMA = Yup.object().shape({})
+  const VALIDATION_SCHEMA = Yup.object().shape({
+    name: Yup.string().required('Rezeptname wird benötigt'),
+    description: Yup.string().required('Rezeptbeschreibung wird benötigt'),
+    ingredients: Yup.array().of(Yup.object().shape({
+      name: Yup.string().required('Name der Zutat wird benötigt'),
+      quantity: Yup.number().integer().typeError().required('Menge der Zutat wird benötigt'),
+      unitOfMessure: Yup.string().required('Einheit der Zutat wird benötigt')
+    })),
+    rating: Yup.number().min(1).max(5)
+  })
 
   const handleSubmit = async (values) => {
     await fetch('http://localhost:3000/api/recipes', {
       body: JSON.stringify(values),
       method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      }
     })
     Router.push('/recipes')
   }
@@ -47,6 +60,9 @@ const NewRecipe = () => {
 
   return (
     <>
+      <Head>
+      <title>Neues Rezept</title>
+      </Head>
       <Container maxWidth='md' style={{ marginTop: '10px' }}>
         <Card>
           <CardHeader
@@ -59,7 +75,8 @@ const NewRecipe = () => {
               initialValues={INITIAL_VALUES}
               validationSchema={VALIDATION_SCHEMA}
               onSubmit={(values) => {
-                console.log(values)
+                console.log(JSON.stringify(values))
+                handleSubmit(values)
               }}
             >
               {(props) => (
@@ -125,6 +142,7 @@ const NewRecipe = () => {
                               <Grid item xs={2} md={1}>
                                 <Textfield
                                   name={`ingredients.${index}.quantity`}
+                                  type='tel'
                                 />
                               </Grid>
                               <Grid item xs={2} md={1}>
