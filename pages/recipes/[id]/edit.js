@@ -17,16 +17,21 @@ import Rating from '../../../components/FormUI/Rating'
 import Router from 'next/router'
 import Head from 'next/head'
 
-const EditRecipe = ({ data }) =>{
+const EditRecipe = ({ data }) => {
   const VALIDATION_SCHEMA = Yup.object().shape({
     name: Yup.string().required('Rezeptname wird benötigt'),
     description: Yup.string().required('Rezeptbeschreibung wird benötigt'),
-    ingredients: Yup.array().of(Yup.object().shape({
-      name: Yup.string().required('Name der Zutat wird benötigt'),
-      quantity: Yup.number().integer().typeError().required('Menge der Zutat wird benötigt'),
-      unitOfMessure: Yup.string().required('Einheit der Zutat wird benötigt')
-    })),
-    rating: Yup.number().min(1).max(5)
+    ingredients: Yup.array().of(
+      Yup.object().shape({
+        name: Yup.string().required('Name der Zutat wird benötigt'),
+        quantity: Yup.number()
+          .integer()
+          .typeError()
+          .required('Menge der Zutat wird benötigt'),
+        unitOfMessure: Yup.string().required('Einheit der Zutat wird benötigt'),
+      })
+    ),
+    rating: Yup.number().min(1).max(5),
   })
 
   const INITIAL_VALUES = data
@@ -36,8 +41,8 @@ const EditRecipe = ({ data }) =>{
       body: JSON.stringify(values),
       method: 'PUT',
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     })
     Router.push('/recipes')
   }
@@ -46,10 +51,10 @@ const EditRecipe = ({ data }) =>{
     Router.back()
   }
 
-  return(
-      <>
+  return (
+    <>
       <Head>
-      <title>{`${data.name} bearbeiten`}</title>
+        <title>{`${data.name} bearbeiten`}</title>
       </Head>
       <Container maxWidth='md' style={{ marginTop: '10px' }}>
         <Card>
@@ -189,7 +194,7 @@ const EditRecipe = ({ data }) =>{
         </Card>
       </Container>
     </>
-    )
+  )
 }
 
 export const getServerSideProps = async ({ query: { id } }) => {
