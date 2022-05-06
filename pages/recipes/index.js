@@ -1,18 +1,16 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import {
   Container,
   Grid,
   Card,
-  CardContent,
   CardHeader,
   CardActions,
   Button,
-  IconButton,
   Stack,
 } from '@mui/material'
 import {
-  PreviewOutlined,
   EditOutlined,
   DeleteOutlined,
 } from '@mui/icons-material'
@@ -58,7 +56,7 @@ const Recipes = ({ data }) => {
                           <EditOutlined />
                         </Button>
                       </Link>
-                      <Link href={`/recipes/${recipe._id}/delete`} passHref>
+                      <Link href={{pathname:`/recipes/${recipe._id}/`, query: {deleting: true}}} passHref>
                         <Button color='error' variant='contained'>
                           <DeleteOutlined />
                         </Button>

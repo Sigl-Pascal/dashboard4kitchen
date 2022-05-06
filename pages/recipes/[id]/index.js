@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import {
   Grid,
   Container,
@@ -8,6 +8,11 @@ import {
   CardContent,
   CardHeader,
   Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material'
 import { DeleteOutlined, AddOutlined } from '@mui/icons-material'
 import { Formik, Form, FieldArray } from 'formik'
@@ -18,8 +23,34 @@ import Link from 'next/link'
 import Router from 'next/router'
 
 const Recipe = ({ data }) => {
+  const [isDeleting, setIsDeleting] = useState(false)
+  
+  const {deleting} = Router.query
+
+  let isNotRerendered = true
+
+  if (deleting & isNotRerendered) {
+    isNotRerendered = false
+    setIsDeleting(true)
+  }
+
   const hanldeCancel = () => {
     Router.back()
+  }
+
+  const handleOpenDeleteDialog = (recipe) => {
+    setIsDeleting(true)
+  }
+
+  const hanleDelete = async () => {
+    await fetch(`http://localhost:3000/api/recipes/${data._id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    setIsDeleting(false)
+    Router.push('/recipes')
   }
 
   const INITIAL_VALUES = data
@@ -155,20 +186,29 @@ const Recipe = ({ data }) => {
                     <Grid item xs={12}>
                       <Divider />
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={4} md={2}>
                       <Link href={`/recipes/${data._id}/edit`} passHref>
                         <Button type='button' variant='contained'>
                           Bearbeiten
                         </Button>
                       </Link>
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={4} md={8}>
                       <Button
                         variant='contained'
                         color='primary'
                         onClick={hanldeCancel}
                       >
                         Zurück
+                      </Button>
+                    </Grid>
+                    <Grid item xs={4} md={2}>
+                      <Button
+                        variant='contained'
+                        color='error'
+                        onClick={handleOpenDeleteDialog}
+                      >
+                        Löschen
                       </Button>
                     </Grid>
                   </Grid>
@@ -178,6 +218,20 @@ const Recipe = ({ data }) => {
           </CardContent>
         </Card>
       </Container>
+      <Dialog open={isDeleting}>
+          <DialogTitle>
+            <Typography>{`${data.name} löschen?`}</Typography>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <Typography>{`Möchtest du das Rezept für ${data.name} wirklich löschen?`}</Typography>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button variant='contained' onClick={hanleDelete} color='error'>Bestätigen</Button>
+            <Button variant='contained' onClick={() => {setIsDeleting(false)}}>Abbrechen</Button>
+          </DialogActions>
+      </Dialog>
     </>
   )
 }
