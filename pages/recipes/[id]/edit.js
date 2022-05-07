@@ -175,7 +175,7 @@ const EditRecipe = ({ data }) => {
                     </Grid>
                     <Grid item xs={6} md={2}>
                       <Button type='submit' variant='contained'>
-                        Erstellen
+                        Bestätigen
                       </Button>
                     </Grid>
                     <Grid item xs={6} md={2}>
