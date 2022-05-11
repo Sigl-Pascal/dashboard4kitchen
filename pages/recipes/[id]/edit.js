@@ -7,7 +7,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Divider
+  Divider,
 } from '@mui/material'
 import { DeleteOutlined, AddOutlined } from '@mui/icons-material'
 import { Formik, Form, FieldArray } from 'formik'
@@ -18,7 +18,6 @@ import Router from 'next/router'
 import Head from 'next/head'
 
 const EditRecipe = ({ data }) => {
-  
   const VALIDATION_SCHEMA = Yup.object().shape({
     name: Yup.string().required('Rezeptname wird benötigt'),
     description: Yup.string().required('Rezeptbeschreibung wird benötigt'),
@@ -49,7 +48,7 @@ const EditRecipe = ({ data }) => {
   }
 
   const hanldeCancel = () => {
-    Router.push('/recipes')
+    Router.back()
   }
 
   return (
@@ -193,7 +192,6 @@ const EditRecipe = ({ data }) => {
             </Formik>
           </CardContent>
         </Card>
-      
       </Container>
     </>
   )
