@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import {
   Grid,
   Container,
@@ -24,15 +24,14 @@ import Router from 'next/router'
 
 const Recipe = ({ data }) => {
   const [isDeleting, setIsDeleting] = useState(false)
-  
-  const {deleting} = Router.query
 
-  let isNotRerendered = true
+  const { deleting } = Router.query
 
-  if (deleting & isNotRerendered) {
-    isNotRerendered = false
-    setIsDeleting(true)
-  }
+  useEffect(() => {
+    if (deleting) {
+      setIsDeleting(true)
+    }
+  }, [deleting])
 
   const hanldeCancel = () => {
     Router.back()
@@ -46,8 +45,8 @@ const Recipe = ({ data }) => {
     await fetch(`http://localhost:3000/api/recipes/${data._id}`, {
       method: 'DELETE',
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     })
     setIsDeleting(false)
     Router.push('/recipes')
@@ -219,18 +218,30 @@ const Recipe = ({ data }) => {
         </Card>
       </Container>
       <Dialog open={isDeleting}>
-          <DialogTitle>
-            <Typography>{`${data.name} löschen?`}</Typography>
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <Typography>{`Möchtest du das Rezept für ${data.name} wirklich löschen?`}</Typography>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button variant='contained' onClick={hanleDelete} color='error'>Bestätigen</Button>
-            <Button variant='contained' onClick={() => {setIsDeleting(false)}}>Abbrechen</Button>
-          </DialogActions>
+        <DialogTitle>
+          <Typography>{`${data.name} löschen?`}</Typography>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Typography>{`Möchtest du das Rezept für ${data.name} wirklich löschen?`}</Typography>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant='contained' onClick={hanleDelete} color='error'>
+            Bestätigen
+          </Button>
+          <Button
+            variant='contained'
+            onClick={() => {
+              setIsDeleting(false)
+              if (deleting) {
+                Router.push('/recipes')
+              }
+            }}
+          >
+            Abbrechen
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   )
