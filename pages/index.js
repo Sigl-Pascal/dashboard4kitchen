@@ -1,14 +1,14 @@
-import Head from "next/head"
+import Head from 'next/head'
 
 const Index = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>Dashboard</title>
-        <meta name="description" content="A dashboard for use in Kitchens" />
+        <meta name='description' content='A dashboard for kitchens' />
       </Head>
-      <h1 className="mx-auto">Hello World!</h1>
-    </div>
+      <h1>Willkommen</h1>
+    </>
   )
 }
 

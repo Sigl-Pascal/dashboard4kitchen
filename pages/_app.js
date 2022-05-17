@@ -1,6 +1,6 @@
 import '../styles/global.css'
-import Layout from '../components/Layout'
 import { useState } from 'react'
+import Layout from '../components/Layout'
 import Router from 'next/router'
 import { LinearProgress } from '@mui/material'
 
