@@ -115,7 +115,7 @@ const EditRecipe = ({ data }) => {
                           <Grid item xs={6} md={9}>
                             <Typography>Zutat</Typography>
                           </Grid>
-                          <Grid item xs={1}>
+                          <Grid item xs={2} md={1}>
                             <Button
                               type='button'
                               onClick={() =>
@@ -144,12 +144,13 @@ const EditRecipe = ({ data }) => {
                                   name={`ingredients.${index}.unitOfMessure`}
                                 />
                               </Grid>
-                              <Grid item xs={5} md={9}>
+                              <Grid item xs={6} md={9}>
                                 <Textfield name={`ingredients.${index}.name`} />
                               </Grid>
                               <Grid
                                 item
-                                xs={1}
+                                xs={2}
+                                md={1}
                                 alignContent='center'
                                 style={{ margin: 'auto' }}
                               >
@@ -172,12 +173,12 @@ const EditRecipe = ({ data }) => {
                     <Grid item xs={12}>
                       <Divider />
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={4} md={2}>
                       <Button type='submit' variant='contained'>
                         Bestätigen
                       </Button>
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={4} md={2}>
                       <Button
                         variant='contained'
                         color='error'

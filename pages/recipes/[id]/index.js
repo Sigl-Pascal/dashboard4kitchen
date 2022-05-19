@@ -115,7 +115,7 @@ const Recipe = ({ data }) => {
                           <Grid item xs={6} md={9}>
                             <Typography>Zutat</Typography>
                           </Grid>
-                          <Grid item xs={1}>
+                          <Grid item xs={2} md={1}>
                             <Button
                               type='button'
                               disabled
@@ -151,7 +151,7 @@ const Recipe = ({ data }) => {
                                   }}
                                 />
                               </Grid>
-                              <Grid item xs={5} md={9}>
+                              <Grid item xs={6} md={9}>
                                 <Textfield
                                   name={`ingredients.${index}.name`}
                                   InputProps={{
@@ -161,7 +161,8 @@ const Recipe = ({ data }) => {
                               </Grid>
                               <Grid
                                 item
-                                xs={1}
+                                xs={2}
+                                md={1}
                                 alignContent='center'
                                 style={{ margin: 'auto' }}
                               >

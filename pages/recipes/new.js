@@ -34,12 +34,17 @@ const NewRecipe = () => {
   const VALIDATION_SCHEMA = Yup.object().shape({
     name: Yup.string().required('Rezeptname wird benötigt'),
     description: Yup.string().required('Rezeptbeschreibung wird benötigt'),
-    ingredients: Yup.array().of(Yup.object().shape({
-      name: Yup.string().required('Name der Zutat wird benötigt'),
-      quantity: Yup.number().integer().typeError().required('Menge der Zutat wird benötigt'),
-      unitOfMessure: Yup.string().required('Einheit der Zutat wird benötigt')
-    })),
-    rating: Yup.number().min(1).max(5)
+    ingredients: Yup.array().of(
+      Yup.object().shape({
+        name: Yup.string().required('Name der Zutat wird benötigt'),
+        quantity: Yup.number()
+          .integer()
+          .typeError()
+          .required('Menge der Zutat wird benötigt'),
+        unitOfMessure: Yup.string().required('Einheit der Zutat wird benötigt'),
+      })
+    ),
+    rating: Yup.number().min(1).max(5),
   })
 
   const handleSubmit = async (values) => {
@@ -47,8 +52,8 @@ const NewRecipe = () => {
       body: JSON.stringify(values),
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     })
     Router.push('/recipes')
   }
@@ -60,7 +65,7 @@ const NewRecipe = () => {
   return (
     <>
       <Head>
-      <title>Neues Rezept</title>
+        <title>Neues Rezept</title>
       </Head>
       <Container maxWidth='md' style={{ marginTop: '10px' }}>
         <Card>
@@ -121,7 +126,7 @@ const NewRecipe = () => {
                           <Grid item xs={6} md={9}>
                             <Typography>Zutat</Typography>
                           </Grid>
-                          <Grid item xs={1}>
+                          <Grid item xs={2} md={1}>
                             <Button
                               type='button'
                               onClick={() =>
@@ -150,12 +155,13 @@ const NewRecipe = () => {
                                   name={`ingredients.${index}.unitOfMessure`}
                                 />
                               </Grid>
-                              <Grid item xs={5} md={9}>
+                              <Grid item xs={6} md={9}>
                                 <Textfield name={`ingredients.${index}.name`} />
                               </Grid>
                               <Grid
                                 item
-                                xs={1}
+                                xs={2}
+                                md={1}
                                 alignContent='center'
                                 style={{ margin: 'auto' }}
                               >
@@ -178,12 +184,12 @@ const NewRecipe = () => {
                     <Grid item xs={12}>
                       <Divider />
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={4} md={2}>
                       <Button type='submit' variant='contained'>
                         Erstellen
                       </Button>
                     </Grid>
-                    <Grid item xs={6} md={2}>
+                    <Grid item xs={4} md={2}>
                       <Button
                         variant='contained'
                         color='error'
