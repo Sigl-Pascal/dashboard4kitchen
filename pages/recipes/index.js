@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import {
@@ -8,12 +7,8 @@ import {
   CardHeader,
   CardActions,
   Button,
-  Stack,
 } from '@mui/material'
-import {
-  EditOutlined,
-  DeleteOutlined,
-} from '@mui/icons-material'
+import { EditOutlined, DeleteOutlined } from '@mui/icons-material'
 
 const Recipes = ({ data }) => {
   return (
@@ -35,7 +30,14 @@ const Recipes = ({ data }) => {
                 md={6}
                 lg={3}
               >
-                <Card style={{ textAlign: 'center' }}>
+                <Card
+                  style={{
+                    textAlign: 'center',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
                   <CardHeader
                     title={
                       <Link href={`/recipes/${recipe._id}`} passHref>
@@ -43,25 +45,35 @@ const Recipes = ({ data }) => {
                       </Link>
                     }
                   />
-                  <CardActions style={{ justifyContent: 'center' }}>
-                    <Stack direction='row' spacing={2}>
-                      <Link
-                        href={{
-                          pathname: `/recipes/${recipe._id}/edit`,
-                          query: recipe,
-                        }}
-                        passHref
-                      >
-                        <Button color='primary' variant='contained'>
-                          <EditOutlined />
-                        </Button>
-                      </Link>
-                      <Link href={{pathname:`/recipes/${recipe._id}/`, query: {deleting: true}}} passHref>
-                        <Button color='error' variant='contained'>
-                          <DeleteOutlined />
-                        </Button>
-                      </Link>
-                    </Stack>
+                  <CardActions
+                    style={{
+                      justifyContent: 'center',
+                      display: 'flex',
+                      marginTop: 'auto',
+                    }}
+                  >
+                    <Link
+                      href={{
+                        pathname: `/recipes/${recipe._id}/edit`,
+                        query: recipe,
+                      }}
+                      passHref
+                    >
+                      <Button color='primary' variant='contained'>
+                        <EditOutlined />
+                      </Button>
+                    </Link>
+                    <Link
+                      href={{
+                        pathname: `/recipes/${recipe._id}/`,
+                        query: { deleting: true },
+                      }}
+                      passHref
+                    >
+                      <Button color='error' variant='contained'>
+                        <DeleteOutlined />
+                      </Button>
+                    </Link>
                   </CardActions>
                 </Card>
               </Grid>
